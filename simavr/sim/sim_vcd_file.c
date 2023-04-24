@@ -290,7 +290,7 @@ avr_vcd_init_input(
 			char *si = v->argv[1];
 
 			vcd->vcd_to_ns = 1;
-			while (si && *si && isdigit(*si))
+			while (si && *si && isdigit((int)*si))
 				cnt = (cnt * 10) + (*si++ - '0');
 			while (si && *si == ' ')
 				si++;

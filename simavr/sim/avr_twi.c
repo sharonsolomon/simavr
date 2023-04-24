@@ -102,6 +102,7 @@ avr_twi_set_state_timer(
 	avr_twi_t * p = (avr_twi_t *)param;
 	_avr_twi_status_set(p, p->next_twstate, 1);
 	p->next_twstate = 0;
+	avr_regbit_set(p->io.avr, p->twi.raised);
 	return 0;
 }
 
@@ -133,6 +134,7 @@ _avr_twi_delay_state(
 	uint32_t clockdiv = 16u+((bitrate<<1u)*_avr_twi_quick_exp(4,prescale));
 	//One TWI cycle is "clockdiv" AVR Cycles. So we can wait in these directly.
 	// printf("Waiting %d cycles\n",clockdiv*twi_cycles);
+	avr_regbit_clear(p->io.avr, p->twi.raised);
 	avr_cycle_timer_register(
 			p->io.avr, twi_cycles*clockdiv, avr_twi_set_state_timer, p);
 }

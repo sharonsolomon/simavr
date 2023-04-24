@@ -32,7 +32,7 @@ enum {
 	AVR_TIMER_COMPA = 0,
 	AVR_TIMER_COMPB,
 	AVR_TIMER_COMPC,
-
+	AVR_TIMER_COMPD,
 	AVR_TIMER_COMP_COUNT
 };
 
@@ -40,6 +40,7 @@ enum {
 	TIMER_IRQ_OUT_PWM0 = 0,
 	TIMER_IRQ_OUT_PWM1,
 	TIMER_IRQ_OUT_PWM2,
+	TIMER_IRQ_OUT_PWM3,
 	TIMER_IRQ_IN_ICP,	// input capture
 	TIMER_IRQ_OUT_COMP,	// comparator pins output IRQ
 
@@ -94,9 +95,13 @@ typedef struct avr_timer_wgm_t {
 #define AVR_TIMER_EXTCLK_FLAG_EDGE 0x01		// use the rising edge
 
 #define AVR_TIMER_WGM_NORMAL8() { .kind = avr_timer_wgm_normal, .size=8 }
+#define AVR_TIMER_WGM_NORMAL10() { .kind = avr_timer_wgm_normal, .size=10 }
 #define AVR_TIMER_WGM_NORMAL16() { .kind = avr_timer_wgm_normal, .size=16 }
 #define AVR_TIMER_WGM_CTC() { .kind = avr_timer_wgm_ctc, .top = avr_timer_wgm_reg_ocra }
 #define AVR_TIMER_WGM_ICCTC() { .kind = avr_timer_wgm_ctc, .top = avr_timer_wgm_reg_icr }
+#define AVR_TIMER_WGM_PWM8() { .kind = avr_timer_wgm_pwm, .size=8 }
+#define AVR_TIMER_WGM_PWM9() { .kind = avr_timer_wgm_pwm, .size=9 }
+#define AVR_TIMER_WGM_PWM10() { .kind = avr_timer_wgm_pwm, .size=10 }
 #define AVR_TIMER_WGM_FASTPWM8() { .kind = avr_timer_wgm_fast_pwm, .size=8 }
 #define AVR_TIMER_WGM_FASTPWM9() { .kind = avr_timer_wgm_fast_pwm, .size=9 }
 #define AVR_TIMER_WGM_FASTPWM10() { .kind = avr_timer_wgm_fast_pwm, .size=10 }
@@ -125,6 +130,7 @@ enum {
 	avr_timer_trace_compa 	= (1 << 8),
 	avr_timer_trace_compb 	= (1 << 9),
 	avr_timer_trace_compc 	= (1 << 10),
+	avr_timer_trace_compd 	= (1 << 11),
 };
 
 typedef struct avr_timer_t {
@@ -168,6 +174,7 @@ typedef struct avr_timer_t {
 } avr_timer_t;
 
 void avr_timer_init(avr_t * avr, avr_timer_t * port);
+
 
 #ifdef __cplusplus
 };
